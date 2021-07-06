@@ -1,27 +1,38 @@
-package restfulwebservice02;
+package restfulwebservice03;
+
 
 import java.time.LocalDate;
 import java.time.Period;
 
-public class SF02StudentBean {
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
+@Entity
+@Table(name = "students")
+public class SF03StudentBean {
 	
+	@Id
 	private Long id;
 	private String name;
 	private String email;
 	private LocalDate dob;
+	//@Transient //This annotation makes age invisible on the table in DB
 	private Integer age;
 
 	private String errMsg;
 	
-	public SF02StudentBean(Long id, String name, String email, LocalDate dob) {
+	public SF03StudentBean(Long id, String name, String email, LocalDate dob) {
 		this.id = id;
 		this.name = name;
 		this.email = email;
 		this.dob = dob;
+		this.age = getAge();
 		this.errMsg = "No error...";
 	}
 	
-	public SF02StudentBean() {
+	public SF03StudentBean() {
 		this.errMsg = "There is no any students like that...";
 	}
 
