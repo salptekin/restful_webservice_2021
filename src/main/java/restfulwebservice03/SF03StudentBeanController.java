@@ -28,10 +28,10 @@ public class SF03StudentBeanController {
 		return studentService.listStudents();
 	}
 	
-//	@GetMapping(path="api/v1/allStudents/{id}")
-//	public SF03StudentBean getStdById(@PathVariable Long id) {
-//		return studentService.selectStdById(id);
-//	}
+	@GetMapping(path="api/v1/allStudents/{id}")
+	public SF03StudentBean getStdById(@PathVariable Long id) {
+		return studentService.selectStdById(id);
+	}
 	
 	@DeleteMapping(path = "api/v1/deleteStudents/{id}")
 	public String deleteStdById(@PathVariable(value="id") Long id) {

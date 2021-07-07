@@ -9,7 +9,5 @@ import org.springframework.stereotype.Repository;
 public interface SF03StudentBeanRepository extends JpaRepository<SF03StudentBean, Long>{
 
 	Optional<SF03StudentBean> findSF03StudentBeanByEmail(String email);
-	
-	Optional<SF03StudentBean> findSF03StudentBeanById(Long id);
 
 }
