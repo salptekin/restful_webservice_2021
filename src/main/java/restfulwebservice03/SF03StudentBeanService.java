@@ -24,13 +24,13 @@ public class SF03StudentBeanService {
 		return studentRepo.findAll();
 	}
 	
-	public SF03StudentBean selectStdById(Long id) {		
-		if(studentRepo.findById(id).isPresent()) {
-			return studentRepo.findById(id).get();			
-		}else{
-			return new SF03StudentBean();	
-		}
-	}
+//	public SF03StudentBean selectStdById(Long id) {		
+//		if(studentRepo.findById(id).isPresent()) {
+//			return studentRepo.findById(id).get();			
+//		}else{
+//			return new SF03StudentBean();	
+//		}
+//	}
 	//For invalid ids, the method will throw IllegalStateException with "id does not exist" message
 	//For valid ids, student with the id will be removed from the database and you will get a success
 	//message on the console like "Student whose id is 'id' is successfully deleted"
@@ -46,7 +46,7 @@ public class SF03StudentBeanService {
 	public SF03StudentBean updateStudent(Long id, SF03StudentBean newStudent) {
 		
 		SF03StudentBean existingStudentById = studentRepo
-												.findById(id)
+												.findSF03StudentBeanById(id)
 												.orElseThrow(()->new IllegalStateException(id + " id does not exist.."));
 		
 		String name = existingStudentById.getName();		
@@ -76,11 +76,39 @@ public class SF03StudentBeanService {
 			existingStudentById.setDob(newStudent.getDob());
 		}
 		
-		return studentRepo.save(newStudent);
+		return studentRepo.save(existingStudentById);
 		
 	}
 	
 	
+	//The method will be for partially update
+	public SF03StudentBean updateStdPartially(Long id, SF03StudentBean newStudent) {
+		
+		SF03StudentBean existingStudentById = studentRepo
+											.findById(id)
+											.orElseThrow(()-> new IllegalStateException(id + " id does not exist.."));
+		
+		if(newStudent.getName()!=null) {
+			existingStudentById.setName(newStudent.getName());
+		}
+		
+		Optional<SF03StudentBean> existingStudentByEmail = studentRepo.findSF03StudentBeanByEmail(newStudent.getEmail());		
+		if(existingStudentByEmail.isPresent()) {
+			System.out.println("First if.....");
+			throw new IllegalStateException("Email is taken, cannot be used again...");	
+			
+		}else if(newStudent.getEmail()!=null && !newStudent.getEmail().contains("@")) {	
+			System.out.println("Second if.....");
+			throw new IllegalArgumentException("Invalid email id is used, fix it...");
+			
+		}else if(newStudent.getEmail()!=null){
+			System.out.println("Third if.....");
+			existingStudentById.setEmail(newStudent.getEmail());			
+		}
+		
+		return studentRepo.save(existingStudentById);
+		
+	}
 	
 	
 	
