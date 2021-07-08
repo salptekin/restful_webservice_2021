@@ -34,6 +34,7 @@ public class SF03StudentBean {
 	
 	public SF03StudentBean() {
 		this.errMsg = "There is no any students like that...";
+		this.age = getAge();
 	}
 
 	public Long getId() {
