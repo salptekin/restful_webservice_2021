@@ -79,6 +79,9 @@ public class SF03StudentBeanService {
 			existingStudentById.setDob(newStudent.getDob());
 		}
 		
+		existingStudentById.setAge(newStudent.getAge());
+		existingStudentById.setErrMsg("No error...");
+		
 		return studentRepo.save(existingStudentById);		
 	}
 	

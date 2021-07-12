@@ -25,46 +25,34 @@ public class SF03StudentBeanController {
 		this.studentService = studentService;
 	}
 	
-	@GetMapping(path="api/v1/allStudents")
+	@GetMapping(path="/api/v1/allStudents")
 	public List<SF03StudentBean> getAllStudents(){
 		return studentService.listStudents();
 	}
 	
-	@GetMapping(path="api/v1/allStudents/{id}")
+	@GetMapping(path="/api/v1/allStudents/{id}")
 	public SF03StudentBean getStdById(@PathVariable Long id) {
 		return studentService.selectStdById(id);
 	}
 	
-	@DeleteMapping(path = "api/v1/deleteStudents/{id}")
+	@DeleteMapping(path = "/api/v1/deleteStudents/{id}")
 	public String deleteStdById(@PathVariable(value="id") Long id) {
 		return studentService.deleteStdById(id);
 	}
 	
-	@PutMapping(path = "api/v1/updateStudents/{id}")
+	@PutMapping(path = "/api/v1/updateStudents/{id}")
 	public ResponseEntity<SF03StudentBean> updateStudent(@PathVariable Long id, @Validated @RequestBody SF03StudentBean student){
 		return ResponseEntity.ok(studentService.updateStudent(id, student));		
 	}
 	
-	@PatchMapping(path = "api/v1/updateStudentsPartially/{id}")
+	@PatchMapping(path = "/api/v1/updateStudentsPartially/{id}")
 	public ResponseEntity<SF03StudentBean> updateStudentPartially(@PathVariable Long id, @Validated @RequestBody SF03StudentBean student){
 		return ResponseEntity.ok(studentService.updateStdPartially(id, student));		
 	}
 	
-	@PostMapping(path = "api/v1/addNewStudent")
+	@PostMapping(path = "/api/v1/addNewStudent")
 	public ResponseEntity<SF03StudentBean> updateStudentPartially(@Validated @RequestBody SF03StudentBean student) throws ClassNotFoundException, SQLException{
 		return ResponseEntity.ok(studentService.addStudent(student));		
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
 }
