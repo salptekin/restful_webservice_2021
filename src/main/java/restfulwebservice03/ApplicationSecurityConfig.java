@@ -29,15 +29,14 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter{
 	protected void configure(HttpSecurity http) throws Exception {
 		
 		http.
-			//csrf().disable().//This opens POST, PUT, PATCH, DELETE methods, they are closed as default
+			csrf().disable().//This opens POST, PUT, PATCH, DELETE methods, they are closed as default
 			authorizeRequests().
 			antMatchers("/", "index", "/css/*", "/js/*").permitAll().
 			antMatchers("/api/**").hasRole(ApplicationUserRoles.ADMIN.name()).// ==> "/api/**" can be accessed just by ADMIN
 			anyRequest().
 			authenticated().
 			and().
-			httpBasic();
-		
+			httpBasic();		
 	}
 	
 	@Override
@@ -48,38 +47,19 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter{
 								builder().
 								username("student").
 								password(passwordEncoder.encode("12345")).
-								//authorities(ApplicationUserRoles.STUDENT.getGrantedAuthorities()).
-								roles(ApplicationUserRoles.STUDENT.name()).
+								authorities(ApplicationUserRoles.STUDENT.getGrantedAuthorities()).
+								//roles(ApplicationUserRoles.STUDENT.name()).
 								build();
 		
 		UserDetails admin = User.
 								builder().
 								username("admin").
 								password(passwordEncoder.encode("12345")).
-								//authorities(ApplicationUserRoles.ADMIN.getGrantedAuthorities()).
-								roles(ApplicationUserRoles.ADMIN.name()).
+								authorities(ApplicationUserRoles.ADMIN.getGrantedAuthorities()).
+								//roles(ApplicationUserRoles.ADMIN.name()).
 								build();
 		
 		return new InMemoryUserDetailsManager(student, admin);
 		
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
 }
